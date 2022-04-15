@@ -1,8 +1,14 @@
 package com.bridgelabz.addressbook.entity;
 
+import com.bridgelabz.addressbook.dto.ContactDTO;
+
 public class Contact {
     private String id;
     private String name;
+
+    public Contact(int i, ContactDTO contactDTO) {
+
+    }
 
     public String getId() {
         return id;
