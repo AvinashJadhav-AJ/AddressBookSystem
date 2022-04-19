@@ -34,7 +34,7 @@ public class AddressBookController {
      * @return
      */
     @GetMapping("/get/{contactId}")
-    public ResponseEntity<ResponseDTO> getContactData(@PathVariable("contactId") int contactId) {
+    public ResponseEntity<ResponseDTO> getContactData(@PathVariable("contactId") long contactId) {
         Contact contact = addressbookservice.getContactById(contactId);
         ResponseDTO response = new ResponseDTO("Get call success for id", contact);
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);

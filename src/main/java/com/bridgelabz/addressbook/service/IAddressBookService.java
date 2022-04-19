@@ -8,12 +8,14 @@ import java.util.List;
 public interface IAddressBookService {
     List<Contact> getContact();
 
-    Contact getContactById(int contactId);
+    Contact getContactById(long contactId);
 
     Contact createContact(ContactDTO contactDTO);
 
-    Contact updateContact(int contactId, ContactDTO contactDTO);
+    Contact updateContact(long contactId, ContactDTO contactDTO);
 
-    void deleteContact(int contactId);
+    void deleteContact(long contactId);
+
+    List<Contact> findAddressBookDataByCity(String city);
 }
 

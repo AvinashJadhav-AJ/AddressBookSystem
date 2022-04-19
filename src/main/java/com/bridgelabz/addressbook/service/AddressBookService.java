@@ -2,25 +2,29 @@ package com.bridgelabz.addressbook.service;
 
 import com.bridgelabz.addressbook.dto.ContactDTO;
 import com.bridgelabz.addressbook.entity.Contact;
+import com.bridgelabz.addressbook.exception.AddressBookException;
+import com.bridgelabz.addressbook.repository.AddressBookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class AddressBookService implements IAddressBookService{
+
+    @Autowired
+    AddressBookRepository addressBookRepository;
     /**
      * Service method for Getting All Contact Data
      * @return
      */
     @Override
     public List<Contact> getContact() {
-        List<Contact> contactList = new ArrayList<>();
-        contactList.add(new Contact(1,
-                new ContactDTO("Shubham", "Singh", "varanasi",
-                        "UP", "Varanasi", "221105",
-                        "6380236945")));
-        return contactList;
+
+        return addressBookRepository.findAll();
     }
 
     /**
@@ -29,12 +33,9 @@ public class AddressBookService implements IAddressBookService{
      * @return
      */
     @Override
-    public Contact getContactById(int contactId) {
-        Contact contact = new Contact(2,
-                new ContactDTO("Avinash", "Jhadhav",
-                        "Aurangabad", "Maharastara", "Aurangabad",
-                        "45586", "7679157389"));
-        return contact;
+    public Contact getContactById(long contactId) {
+
+        return addressBookRepository.findById(contactId).orElseThrow(() -> new AddressBookException("Contact Not Found"));
     }
 
     /**
@@ -44,8 +45,8 @@ public class AddressBookService implements IAddressBookService{
      */
     @Override
     public Contact createContact(ContactDTO contactDTO) {
-        Contact contact = new Contact(3, contactDTO);
-        return contact;
+    Contact contact = new Contact(contactDTO);
+        return addressBookRepository.save(contact);
     }
 
     /**
@@ -55,9 +56,10 @@ public class AddressBookService implements IAddressBookService{
      * @return
      */
     @Override
-    public Contact updateContact(int contactId, ContactDTO contactDTO) {
-        Contact contact = new Contact(1, contactDTO);
-        return contact;
+    public Contact updateContact(long contactId, ContactDTO contactDTO) {
+        Contact contact = this.getContactById(contactId);
+        contact.Contact(contactDTO);
+        return addressBookRepository.save(contact);
     }
 
     /**
@@ -65,7 +67,18 @@ public class AddressBookService implements IAddressBookService{
      * @param contactId
      */
     @Override
-    public void deleteContact(int contactId) {
+    public void deleteContact(long contactId) {
+        Contact contact = this.getContactById(contactId);
+        addressBookRepository.delete(contact);
+    }
 
+    /**
+     *
+     * @param city
+     * @return
+     */
+    @Override
+    public List<Contact> findAddressBookDataByCity(String city) {
+        return addressBookRepository.findAddressBookDataByCity(city);
     }
 }
