@@ -6,6 +6,11 @@ public class Contact {
     private String id;
     private String name;
 
+    /**
+     *
+     * @param i
+     * @param contactDTO
+     */
     public Contact(int i, ContactDTO contactDTO) {
 
     }

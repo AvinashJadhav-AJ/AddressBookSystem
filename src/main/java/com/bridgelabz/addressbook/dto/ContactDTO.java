@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ContactDTO {
+
     public String firstName;
     public String lastName;
     public String address;
@@ -12,6 +13,16 @@ public class ContactDTO {
     public String zip;
     public String phone;
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param state
+     * @param city
+     * @param zip
+     * @param phone
+     */
     public ContactDTO(String firstName, String lastName, String address, String state, String city, String zip,
                       String phone) {
 
@@ -24,6 +35,10 @@ public class ContactDTO {
         this.phone = phone;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ContactDTO [First Name =" + firstName + ", Last Name =" + lastName + ", Address =" + address

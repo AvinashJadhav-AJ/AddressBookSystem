@@ -12,7 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
+
 public class AddressBookExceptionHandler {
+    /**
+     * User friendly exception for User Data Validation
+     * @param exception
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException exception) {
@@ -24,6 +30,11 @@ public class AddressBookExceptionHandler {
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * User defined Custom exception for User Friendly Message
+     * @param exception
+     * @return
+     */
     @ExceptionHandler(AddressBookException.class)
     public ResponseEntity<ResponseDTO> handleEmployeePayrollException(
             AddressBookException exception) {
