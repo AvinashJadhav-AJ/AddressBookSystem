@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 @Service
@@ -132,7 +133,10 @@ public Contact createContact(ContactDTO contactDTO) {
         boolean matches = bCryptPasswordEncoder.matches(password, userPass.getPassword());
         String token = tokenUtil.createToken(userPass.getId());
         //JMSUtil jmsUtil = new JMSUtil();
-        jmsUtil.sendEmail(email,"this is subject","this is body");
+//        jmsUtil.sendEmail(email,"this is subject","this is body");
+//        return  token;
+        int random = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        jmsUtil.sendEmail(email,"OTP for Addressbook App Login","Hello "+userPass.getFirstName()+", OTP for Your Addressbook App is : "+random);
         return  token;
 
 //        if (matches) {
